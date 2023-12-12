@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="div"></div>
+    </body>
+    <script
+        src="../React-js/react.development.js"
+        type="text/javascript"
+    ></script>
+    <script
+        src="../React-js/react-dom.development.js"
+        type="text/javascript"
+    ></script>
+    <script src="../React-js/babel.min.js"></script>
+    <script src="../React-js/prop-types.js"></script>
+
+    <script type="text/babel">
+        class Dom extends React.Component {
+            btnOnClick = () => {
+                const { clickInput } = this.refs;
+                alert(clickInput.value);
+            };
+            inputBlur = () => {
+                const { blurInput } = this.refs;
+                alert(blurInput.value);
+            };
+            render() {
+                return (
+                    <div>
+                        <input
+                            ref="clickInput"
+                            type="text"
+                            placeholder="点击弹出"
+                        />
+                        &nbsp;
+                        <button onClick={this.btnOnClick}>点击</button>&nbsp;
+                        <input
+                            ref="blurInput"
+                            onBlur={this.inputBlur}
+                            type="text"
+                            placeholder="失去焦点弹出弹出"
+                        />
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<Dom />, document.getElementById("div"));
+    </script>
+</html>

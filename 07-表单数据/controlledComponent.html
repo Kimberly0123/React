@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="div"></div>
+    </body>
+    <script
+        src="../React-js/react.development.js"
+        type="text/javascript"
+    ></script>
+    <script
+        src="../React-js/react-dom.development.js"
+        type="text/javascript"
+    ></script>
+    <script src="../React-js/babel.min.js"></script>
+    <script src="../React-js/prop-types.js"></script>
+
+    <script type="text/babel">
+        /*
+    受控制组件，就是使用event和state的input component，就是将内容绑定到state中的，在使用的时候使用state里面的   
+*/
+
+        class Login extends React.Component {
+            state = { username: "", password: "" };
+
+            login = (event) => {
+                event.preventDefault(); // 阻止表單提交
+                const { username, password } = this.state;
+                alert(`name: ${username}. password: ${password}`);
+            };
+
+            saveName = (event) => {
+                this.setState({ username: event.target.value });
+            };
+
+            savePwd = (event) => {
+                this.setState({ password: event.target.value });
+            };
+
+            render() {
+                return (
+                    <form action="http://www.baidu.com" onSubmit={this.login}>
+                        用户名：
+                        <input
+                            onChange={this.saveName}
+                            type="text"
+                            name="username"
+                        />
+                        密码
+                        <input
+                            onChange={this.savePwd}
+                            type="password"
+                            name="password"
+                        />
+                        <button>登录</button>
+                    </form>
+                );
+            }
+        }
+
+        ReactDOM.render(<Login />, document.getElementById("div"));
+    </script>
+</html>

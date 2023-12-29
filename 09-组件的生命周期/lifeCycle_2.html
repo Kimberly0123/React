@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="div"></div>
+    </body>
+    <script
+        src="../React-js/react.development.js"
+        type="text/javascript"
+    ></script>
+    <script
+        src="../React-js/react-dom.development.js"
+        type="text/javascript"
+    ></script>
+
+    <script src="../React-js/babel.min.js"></script>
+
+    <script src="../React-js/prop-types.js"></script>
+
+    <script type="text/babel">
+        class Count extends React.Component {
+            // constructor
+            constructor(props) {
+                console.log("***constructor");
+                super(props);
+                // Initiate state
+                this.state = { count: 0 };
+            }
+
+            add = () => {
+                const { count } = this.state;
+                this.setState({ count: count + 1 });
+            };
+
+            death = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById("div"));
+            };
+
+            // 調用的時機：When component is about the mount
+            componentWillMount() {}
+
+            // 調用的時機：after component mount
+            componentDidMount() {}
+
+            // 調用的時機：when component is gonna unmount
+            componentWillUnmount() {}
+
+            // 調用的時機：when setState, it decide whether to update the state
+            shouldComponentUpdate() {
+                return true;
+            }
+
+            // 調用的時機：when component is gonna update
+            componentWillUpdate() {}
+
+            // 調用的時機：After component is updated
+            componentDidUpdate() {}
+
+            // 調用的時機：初始化渲染、狀態更新後
+            render() {
+                const { count } = this.state;
+                return (
+                    <div>
+                        <h2>Sum: {count}</h2>
+                        <button onClick={this.add}>+1</button>
+                        <button onClick={this.death}>Unmount component</button>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<Count />, document.getElementById("div"));
+    </script>
+</html>

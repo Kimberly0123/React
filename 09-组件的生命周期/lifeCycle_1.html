@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="div"></div>
+    </body>
+    <script
+        src="../React-js/react.development.js"
+        type="text/javascript"
+    ></script>
+    <script
+        src="../React-js/react-dom.development.js"
+        type="text/javascript"
+    ></script>
+
+    <script src="../React-js/babel.min.js"></script>
+
+    <script src="../React-js/prop-types.js"></script>
+
+    <script type="text/babel">
+        class Life extends React.Component {
+            /*
+           组件从创建到死亡，会经过一些特定的阶段
+            React组件中包含一系生命周期函数 - componentDidMount(), componentWillUnmout(), etc. - 会在特定的时刻调用
+            我们在定义组件的时候，会在特定的声明周期回调函数中，做特定的工作
+        */
+
+            // Used for opacity
+            state = { opacity: 1 };
+
+            stop = () => {
+                // unmount component
+                ReactDOM.unmountComponentAtNode(document.getElementById("div"));
+            };
+
+            // 調用的時機：after component mount
+            componentDidMount() {
+                //定时器, run every 200 ms
+                this.timer = setInterval(() => {
+                    let { opacity } = this.state;
+                    opacity -= 0.1;
+                    if (opacity <= 0) {
+                        opacity = 1;
+                    }
+                    this.setState({ opacity });
+                }, 200);
+            }
+
+            // 調用的時機：when component is gonna unmount
+            componentWillUnmount() {
+                clearInterval(this.timer);
+            }
+
+            // 調用的時機：初始化渲染、狀態更新後
+            render() {
+                return (
+                    <div>
+                        <h2 style={{ opacity: this.state.opacity }}>
+                            声明周期
+                        </h2>
+                        <button onClick={this.stop}>结束</button>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<Life />, document.getElementById("div"));
+    </script>
+</html>
